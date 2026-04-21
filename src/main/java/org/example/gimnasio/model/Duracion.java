@@ -1,5 +1,18 @@
 package org.example.gimnasio.model;
 
 public enum Duracion {
-    MENSUAL, TRIMESTRAL, ANUAL
+
+    MENSUAL(30),
+    TRIMESTRAL(90),
+    ANUAL(365);
+
+    private final int dias;
+
+    Duracion(int dias) {
+        this.dias = dias;
+    }
+
+    public int getDias() {
+        return dias;
+    }
 }

@@ -24,5 +24,10 @@ public class InscripcionClase {
     @JoinColumn(name = "id_clase")
     private Clase clase;
 
-    private LocalDateTime fechaInscripcion = LocalDateTime.now();
+    private LocalDateTime fechaInscripcion;
+
+    @PrePersist
+    public void prePersist() {
+        this.fechaInscripcion = LocalDateTime.now();
+    }
 }

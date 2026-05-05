@@ -21,6 +21,10 @@ public class ClaseService {
         return claseRepository.findAll();
     }
 
+    public List<Clase> listarPorEntrenador(Integer idEntrenador) {
+        return claseRepository.findByEntrenadorIdEntrenador(idEntrenador);
+    }
+
     public Clase obtenerPorId(Integer id) {
         return claseRepository.findById(id).orElse(null);
     }

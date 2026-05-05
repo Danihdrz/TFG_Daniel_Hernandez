@@ -8,4 +8,5 @@ import java.util.List;
 public interface InscripcionClaseRepository extends JpaRepository<InscripcionClase, Integer> {
 
     List<InscripcionClase> findBySocioIdSocio(Integer idSocio);
+    List<InscripcionClase> findByClaseIdClase(Integer idClase);
 }

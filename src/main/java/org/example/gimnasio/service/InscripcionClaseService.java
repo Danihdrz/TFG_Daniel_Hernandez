@@ -32,4 +32,8 @@ public class InscripcionClaseService {
     public List<InscripcionClase> listar() {
         return repo.findAll();
     }
+
+    public List<InscripcionClase> listarPorClase(Integer idClase) {
+        return repo.findByClaseIdClase(idClase);
+    }
 }

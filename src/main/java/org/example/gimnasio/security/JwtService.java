@@ -6,37 +6,28 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.Base64;
 
 @Service
 public class JwtService {
 
-    // 🔐 CLAVE (debe ser suficientemente larga)
-    private static final String SECRET =
-            Base64.getEncoder().encodeToString(
-                    "mi_clave_muy_segura_para_jwt_1234567890".getBytes()
-            );
+    private static final String SECRET = "mi_clave_muy_segura_para_jwt_1234567890";
 
-    private final Key key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(SECRET));
+    private final Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
-    // ==========================
-    // GENERAR TOKEN
-    // ==========================
-    public String generateToken(String email) {
+    // 🔐 GENERAR TOKEN CON ROLE
+    public String generateToken(String email, String role) {
 
         return Jwts.builder()
                 .setSubject(email)
+                .claim("role", role) // 👈 AQUÍ EL ROL
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1 día
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // ==========================
-    // EXTRAER EMAIL
-    // ==========================
+    // 📥 EXTRAER EMAIL
     public String extractEmail(String token) {
-
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -45,9 +36,17 @@ public class JwtService {
                 .getSubject();
     }
 
-    // ==========================
-    // VALIDAR TOKEN
-    // ==========================
+    // 📥 EXTRAER ROLE
+    public String extractRole(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("role", String.class);
+    }
+
+    // 🔍 VALIDAR
     public boolean isTokenValid(String token) {
         try {
             Jwts.parserBuilder()
@@ -55,7 +54,7 @@ public class JwtService {
                     .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (JwtException e) {
+        } catch (Exception e) {
             return false;
         }
     }

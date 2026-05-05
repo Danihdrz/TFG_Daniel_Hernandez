@@ -25,6 +25,10 @@ public class EntrenadorService {
         return entrenadorRepository.findById(id).orElse(null);
     }
 
+    public Entrenador obtenerPorUsuarioId(Integer idUsuario) {
+        return entrenadorRepository.findByUsuarioIdUsuario(idUsuario).orElse(null);
+    }
+
     public void eliminar(Integer id) {
         entrenadorRepository.deleteById(id);
     }

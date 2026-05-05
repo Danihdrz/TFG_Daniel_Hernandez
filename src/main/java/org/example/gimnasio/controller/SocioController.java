@@ -2,35 +2,33 @@ package org.example.gimnasio.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.gimnasio.model.Socio;
-import org.example.gimnasio.service.SocioService;
+import org.example.gimnasio.repository.SocioRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/socios")
+@RequestMapping("/socio")
 @RequiredArgsConstructor
 public class SocioController {
 
-    private final SocioService socioService;
+    private final SocioRepository socioRepository;
 
-    @PostMapping
-    public Socio crear(@RequestBody Socio socio) {
-        return socioService.guardar(socio);
+    // 🔐 PERFIL DEL USUARIO LOGUEADO
+    @GetMapping("/perfil")
+    public Socio verPerfil(Authentication authentication) {
+
+        String email = authentication.getName();
+
+        return socioRepository.findByUsuarioEmail(email)
+                .orElseThrow(() -> new RuntimeException("Socio no encontrado"));
     }
 
-    @GetMapping
-    public List<Socio> listar() {
-        return socioService.listar();
-    }
+    // 💳 PAGOS (versión simple inicial)
+    @GetMapping("/pagos")
+    public String verPagos(Authentication authentication) {
 
-    @GetMapping("/{id}")
-    public Socio obtener(@PathVariable Integer id) {
-        return socioService.obtenerPorId(id);
-    }
+        String email = authentication.getName();
 
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Integer id) {
-        socioService.eliminar(id);
+        return "Pagos del socio con email: " + email;
     }
 }

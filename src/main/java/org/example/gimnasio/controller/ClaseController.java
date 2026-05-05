@@ -34,4 +34,5 @@ public class ClaseController {
     public void eliminar(@PathVariable Integer id) {
         claseService.eliminar(id);
     }
+
 }

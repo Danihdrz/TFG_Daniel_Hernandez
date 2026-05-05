@@ -28,6 +28,10 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElse(null);
     }
 
+    public Usuario obtenerPorEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElse(null);
+    }
+
     // Eliminar
     public void eliminar(Integer id) {
         usuarioRepository.deleteById(id);

@@ -3,12 +3,11 @@
 -- 1. USUARIOS
 -- =========================================
 INSERT INTO usuarios (nombre, email, password, rol) VALUES
-                                                        ('Juan Pérez', 'juan@socio.com', '1234', 'SOCIO'),        -- id_usuario = 1
-                                                        ('Carlos Martín', 'carlos@socio.com', '1234', 'SOCIO'),   -- id_usuario = 2
-                                                        ('Ana López', 'ana@socio.com', '1234', 'SOCIO'),          -- id_usuario = 3
-                                                        ('Laura Gómez', 'laura@entrenador.com', '1234', 'ENTRENADOR'), -- id_usuario = 4
-                                                        ('Admin', 'admin@gimnasio.com', 'admin123', 'ADMIN');     -- id_usuario = 5
-
+                                                        ('Juan Pérez', 'juan@socio.com', '$2a$10$8.UnVuG9HHgffUDAlk8qfOuVGkqRzgVymGe07xdqD1RPHu9YnTe7W', 'SOCIO'),
+                                                        ('Carlos Martín', 'carlos@socio.com', '$2a$10$8.UnVuG9HHgffUDAlk8qfOuVGkqRzgVymGe07xdqD1RPHu9YnTe7W', 'SOCIO'),
+                                                        ('Ana López', 'ana@socio.com', '$2a$10$8.UnVuG9HHgffUDAlk8qfOuVGkqRzgVymGe07xdqD1RPHu9YnTe7W', 'SOCIO'),
+                                                        ('Laura Gómez', 'laura@entrenador.com', '$2a$10$8.UnVuG9HHgffUDAlk8qfOuVGkqRzgVymGe07xdqD1RPHu9YnTe7W', 'ENTRENADOR'),
+                                                        ('Admin', 'admin@gimnasio.com', '$2a$10$8.UnVuG9HHgffUDAlk8qfOuVGkqRzgVymGe07xdqD1RPHu9YnTe7W', 'ADMIN');
 -- =========================================
 -- 2. SOCIOS
 -- =========================================

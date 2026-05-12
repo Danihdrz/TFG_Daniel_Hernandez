@@ -1,15 +1,31 @@
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getRole } from "./auth";
+import api from "../services/api";
+import { getToken } from "./auth";
 
 export default function ProtectedRoute({ role, children }) {
+    const [status, setStatus] = useState({ loading: true, allowed: false });
 
-    const userRole = getRole();
+    useEffect(() => {
+        const token = getToken();
+        if (!token) {
+            setStatus({ loading: false, allowed: false });
+            return;
+        }
 
-    if (!userRole) {
-        return <Navigate to="/" />;
+        api.get("/usuarios/perfil")
+            .then((res) => {
+                const allowed = !role || res.data.rol === role;
+                setStatus({ loading: false, allowed });
+            })
+            .catch(() => setStatus({ loading: false, allowed: false }));
+    }, [role]);
+
+    if (status.loading) {
+        return <p>Cargando...</p>;
     }
 
-    if (role && userRole !== role) {
+    if (!status.allowed) {
         return <Navigate to="/" />;
     }
 

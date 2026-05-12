@@ -1,0 +1,6 @@
+.site-nav { display: flex; align-items: center; }
+.site-nav a { transition: opacity 0.15s ease; }
+
+@media (max-width: 768px) {
+  .site-nav { display: none; }
+}

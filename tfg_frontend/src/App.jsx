@@ -6,10 +6,13 @@ import Entrenador from "./pages/Entrenador";
 import Socio from "./pages/Socio";
 
 import ProtectedRoute from "./auth/ProtectedRoute";
+import SiteHeader from "./layout/SiteHeader";
 
 export default function App() {
     return (
         <BrowserRouter>
+
+            <SiteHeader />
 
             <Routes>
 

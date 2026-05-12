@@ -58,6 +58,7 @@ CREATE TABLE pagos (
                        id_cuota INT NOT NULL,
                        fecha_pago DATE NOT NULL,
                        monto DECIMAL(7,2) NOT NULL,
+                       fecha_expiracion DATE NOT NULL,
                        FOREIGN KEY (id_socio) REFERENCES socios(id_socio) ON DELETE CASCADE,
                        FOREIGN KEY (id_cuota) REFERENCES cuotas(id_cuota)
 );

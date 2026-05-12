@@ -1,0 +1,29 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: gimnasio
+      MYSQL_USER: ${DB_USERNAME:-usuario}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-usuario123}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: .
+    depends_on:
+      - mysql
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/gimnasio
+      DB_USERNAME: ${DB_USERNAME:-usuario}
+      DB_PASSWORD: ${DB_PASSWORD:-usuario123}
+      DDL_AUTO: validate
+      JWT_SECRET: ${JWT_SECRET:-clave_local_desarrollo_32_bytes_minimo_12345}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:5173}
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:
